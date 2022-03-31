@@ -1,0 +1,32 @@
+{% extends 'template.html' %}
+{% block title %}Dodaj Kupac{% endblock %}
+{% block head %}
+ {{ super() }}
+ <link rel="stylesheet" href="{{ url_for('static',filename='dodavanje.css') }}">
+ {% endblock %}
+
+{% block body %}
+<div id="container">
+    <form action="{{ url_for('dodaj_kupac') }}" method="POST">
+        <div>
+            <label>Korisnicko Ime:</label>
+            <input type="text" name="korisnickoIme" maxlength="5" oninvalid="this.setCustomValidity('Uneti svoje korisnicko ime!')" oninput="setCustomValidity('')" required>
+        </div>
+        <div>
+            <label>Lozinka:</label>
+            <input type="password" name="lozinka" oninvalid="this.setCustomValidity('Uneti svoju lozinku!!!!')" oninput="setCustomValidity('')" required maxlength="255">
+        </div>
+        <div>
+            <label>Ime:</label>
+            <input type="text" name="ime" oninvalid="this.setCustomValidity('Uneti svoje ime!!!')" oninput="setCustomValidity('')" required>
+        </div>
+        <div>
+            <label>Prezime:</label>
+            <input type="text" name="prezime" oninvalid="this.setCustomValidity('Uneti svoje prezime!!!!')" oninput="setCustomValidity('')" required>
+        </div>
+        <div>
+            <button type="submit">Dodaj Novog Kupca</button>
+        </div>
+    </form>
+</div>
+{% endblock  %}

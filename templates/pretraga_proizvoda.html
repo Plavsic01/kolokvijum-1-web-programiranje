@@ -1,0 +1,63 @@
+{% extends 'template.html' %}
+{% block title %}Pretraga Proizvoda{% endblock %}
+{% block head %}
+ {{ super() }}
+ <link rel="stylesheet" href="{{ url_for('static',filename='dodavanje.css') }}">
+ <link rel="stylesheet" href="{{ url_for('static',filename='prikaz.css') }}">
+ {% endblock %}
+
+{% block body %}
+    <h1>Pretraga Proizvoda</h1>
+    <div id="container">
+        <form action="{{ url_for('pretraga_proizvoda') }}" method="POST">
+            <div>
+                <label>ID:</label>
+                <input type="number" name="id">
+            </div>
+            <div>
+                <label>Naziv:</label>
+                <input type="text" name="naziv" maxlength="32">
+            </div>
+            <div>
+                <label>Opis:</label>
+                <textarea name="opis" cols="30" rows="10"></textarea>
+            </div>
+            <div>
+                <label>Cena Od:</label>
+                <input type="number" name="cena_manja" step="any">
+            </div>
+            <div>
+                <label>Cena Do:</label>
+                <input type="number" name="cena_veca" step="any">
+            </div>
+            <div>
+                <label>Dostupno:</label>
+                <input type="number" min="0" max="1" name="dostupno">
+            </div>
+            <div>
+                <button type="submit">Pretraga Proizvoda</button>
+            </div>
+        </form>
+    </div>
+        
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Naziv</th>
+            <th>Opis</th>
+            <th>Cena</th>
+            <th>Dostupno</th>
+        </tr>
+        {% for p in proizvod %}
+            <tr>
+                <td>{{ p['id'] }}</td>
+                <td>{{ p['naziv'] }}</td>
+                <td>{{ p['opis'] }}</td>
+                <td>{{ p['cena'] }}</td>
+                <td>{{ p['dostupno'] }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+
+{% endblock  %}

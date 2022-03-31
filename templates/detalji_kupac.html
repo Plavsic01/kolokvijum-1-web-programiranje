@@ -1,0 +1,31 @@
+{% extends 'template.html' %}
+{% block title %}Detaljan Prikaz{% endblock %}
+{% block head %}
+ {{ super() }}
+ <link rel="stylesheet" href="{{ url_for('static',filename='dodavanje.css') }}">
+ {% endblock %}
+
+{% block body %}
+<div id="container">
+    <div>
+        <label>ID:</label>
+        <input type="number" name="id" value="{{ jedan_kupac['id'] }}" readonly>
+    </div>
+    <div>
+        <label>Korisnicko Ime:</label>
+        <input type="text" name="korisnickoIme" maxlength="32" value="{{ jedan_kupac['korisnickoIme'] }}" readonly>
+    </div>
+    <div>
+        <label>Lozinka:</label>
+        <input type="password" name="lozinka" readonly maxlength="255" value="{{ jedan_kupac['lozinka'] }}">
+    </div>
+    <div>
+        <label>Ime:</label>
+        <input type="text" name="ime" readonly value="{{ jedan_kupac['ime'] }}">
+    </div>
+    <div>
+        <label>Prezime:</label>
+        <input type="text" name="prezime" readonly value="{{ jedan_kupac['prezime'] }}">
+    </div>
+</div>
+{% endblock  %}

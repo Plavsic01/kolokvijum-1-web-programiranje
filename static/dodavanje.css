@@ -1,0 +1,31 @@
+#container{
+    border: 2px solid darkgray;
+    width: 30%;
+    margin: 0 auto;
+    padding:20px;
+}
+
+div{
+    text-align: center;
+}
+
+label{
+    display:inline-block;
+    width: 100px;
+    text-align: right;
+
+}
+
+input{
+    margin:10px;
+    width: 200px;
+    padding:5px;
+}
+
+button{
+    margin-top: 10px;
+    margin-left:50px;
+    text-align: center;
+    padding:5px 20px;
+    border-radius: 10px;
+}

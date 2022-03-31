@@ -1,0 +1,32 @@
+{% extends 'template.html' %}
+{% block title %}Izmeni Proizvod{% endblock %}
+{% block head %}
+ {{ super() }}
+ <link rel="stylesheet" href="{{ url_for('static',filename='dodavanje.css') }}">
+ {% endblock %}
+
+{% block body %}
+<div id="container">
+    <form action="{{ url_for('izmeni_proizvod',id=jedan_proizvod['id']) }}" method="POST">
+        <div>
+            <label>Naziv:</label>
+            <input type="text" name="naziv" maxlength="32" value="{{ jedan_proizvod['naziv'] }}" required>
+        </div>
+        <div>
+            <label>Opis:</label>
+            <textarea name="opis" id="" cols="30" rows="10">{{ jedan_proizvod['opis'] }}</textarea>
+        </div>
+        <div>
+            <label>Cena:</label>
+            <input type="number" name="cena" step="any" value="{{ jedan_proizvod['cena'] }}" required>
+        </div>
+        <div>
+            <label>Dostupno:</label>
+            <input type="number" min="0" max="1" name="dostupno" value="{{ jedan_proizvod['dostupno'] }}" required>
+        </div>
+        <div>
+            <button type="submit">Izmeni Proizvod</button>
+        </div>
+    </form>
+</div>
+{% endblock  %}

@@ -1,0 +1,38 @@
+{% extends 'template.html' %}
+{% block title %}Detaljan Prikaz{% endblock %}
+{% block head %}
+ {{ super() }}
+ <link rel="stylesheet" href="{{ url_for('static',filename='dodavanje.css') }}">
+ {% endblock %}
+
+{% block body %}
+<div id="container">
+    <form action="{{ url_for('izmeni_kupac',id=jedan_kupac['id']) }}" method="POST">
+    <div>
+        <label>ID:</label>
+        <input type="number" name="id" value="{{ jedan_kupac['id'] }}" readonly >
+    </div>
+    <div>
+        <label>Korisnicko Ime:</label>
+        <input type="text" name="korisnickoIme" required maxlength="32" value="{{ jedan_kupac['korisnickoIme'] }}"  oninvalid="this.setCustomValidity('Uneti svoje korisnicko ime!')" oninput="setCustomValidity('')">
+    </div>
+    <div>
+        <label>Lozinka:</label>
+        <input type="password" name="lozinka"  oninvalid="this.setCustomValidity('Uneti svoju lozinku!')" oninput="setCustomValidity('')" required  maxlength="255" value="{{ jedan_kupac['lozinka'] }}">
+    </div>
+    <div>
+        <label>Ime:</label>
+        <input type="text" name="ime"  oninvalid="this.setCustomValidity('Uneti svoje ime!')" oninput="setCustomValidity('')" required value="{{ jedan_kupac['ime'] }}">
+    </div>
+    <div>
+        <label>Prezime:</label>
+        <input type="text" name="prezime" oninvalid="this.setCustomValidity('Uneti svoje prezime!')" oninput="setCustomValidity('')" required value="{{ jedan_kupac['prezime'] }}">
+    </div>
+    <div>
+    
+        <div>
+            <button type="submit">Izmeni</button>
+        </div>
+</form>
+</div>
+{% endblock  %}

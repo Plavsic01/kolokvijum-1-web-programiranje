@@ -1,0 +1,40 @@
+{% extends 'template.html' %}
+{% block title %}Dodaj Kupac{% endblock %}
+{% block head %}
+ {{ super() }}
+ <link rel="stylesheet" href="{{ url_for('static',filename='dodavanje.css') }}">
+ {% endblock %}
+
+{% block body %}
+<div id="container">
+    <form action="{{ url_for('detalji_kupovine',id=jedna_kupovina['id']) }}" method="POST">
+        <div>
+            <label>Kupac ID:</label>
+            <select name="kupac_id" required>
+                    <option value="{{ id_kupac['id'] }}">{{ id_kupac['korisnickoIme'] }}</option>
+            </select>
+        </div>
+
+        <div>
+            <label>Proizvod ID:</label>
+            <select name="proizvod_id" required>
+                    <option value="{{ id_proizvod['id'] }}">{{ id_proizvod['naziv'] }}</option>
+        </div>
+        
+        <div>
+            <input type="number" name="kolicina" min="0" value="{{ jedna_kupovina['kolicina'] }}" placeholder="kolicina" required>
+        </div>
+        
+        <div>
+            <input type="number" name="cena" step="any" min="0" value="{{ jedna_kupovina['cena'] }}" placeholder="cena" required>
+        </div>
+        <div>
+            <label>Datum Kupovine</label>
+            <input type="datetime-local" value="{{ datum_vreme }}" name="datumKupovine" required>
+        </div>
+        <div>
+            <button type="submit">Dodaj Novog Kupca</button>
+        </div>
+    </form>
+</div>
+{% endblock  %}

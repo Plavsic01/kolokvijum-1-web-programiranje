@@ -1,0 +1,65 @@
+{% extends 'template.html' %}
+{% block title %}Prikaz Proizvodi{% endblock %}
+{% block head %}
+ {{ super() }}
+ <link rel="stylesheet" href="{{ url_for('static',filename='prikaz.css') }}">
+ {% endblock %}
+
+{% block body %}
+<div id="container">
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Naziv</th>
+            <th>Opis</th>
+            <th>Cena</th>
+            <th>Dostupno</th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+        {% for proizvod in proizvodi %}
+        {% if proizvod['dostupno'] == 1 %}
+            <tr>
+                <td>{{ proizvod['id'] }}</td>
+                <td>{{ proizvod['naziv'] }}</td>
+                <td>{{ proizvod['opis'] }}</td>
+                <td>{{ proizvod['cena'] }}</td>
+                <td>{{ proizvod['dostupno'] }}</td>
+                <td><a href="{{ url_for('detalji_proizvod',id=proizvod['id']) }}">Detalji</a></td>
+                <td><a href="{{ url_for('izmeni_proizvod',id=proizvod['id']) }}">Izmeni</a></td>
+                <td><a href="{{ url_for('obrisi_proizvod',id=proizvod['id']) }}">Obrisi</a></td>
+            </tr>
+            {% endif %}
+        {% endfor %}
+    </table>
+    <br>
+    <br>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Naziv</th>
+            <th>Opis</th>
+            <th>Cena</th>
+            <th>Dostupno</th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+        {% for proizvod in proizvodi %}
+            {% if proizvod['dostupno'] == 0 %}
+            <tr>
+                <td>{{ proizvod['id'] }}</td>
+                <td>{{ proizvod['naziv'] }}</td>
+                <td>{{ proizvod['opis'] }}</td>
+                <td>{{ proizvod['cena'] }}</td>
+                <td>{{ proizvod['dostupno'] }}</td>
+                <td><a href="{{ url_for('detalji_proizvod',id=proizvod['id']) }}">Detalji</a></td>
+                <td><a href="{{ url_for('izmeni_proizvod',id=proizvod['id']) }}">Izmeni</a></td>
+                <td><a href="{{ url_for('obrisi_proizvod',id=proizvod['id']) }}">Obrisi</a></td>
+            </tr>
+            {% endif %}
+        {% endfor %}
+    </table>
+</div>
+{% endblock  %}

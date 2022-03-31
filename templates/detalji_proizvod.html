@@ -1,0 +1,27 @@
+{% extends 'template.html' %}
+{% block title %}Detaljan Prikaz{% endblock %}
+{% block head %}
+ {{ super() }}
+ <link rel="stylesheet" href="{{ url_for('static',filename='dodavanje.css') }}">
+ {% endblock %}
+
+{% block body %}
+<div id="container">
+        <div>
+            <label>Naziv:</label>
+            <input type="text" name="naziv" maxlength="32" value="{{ jedan_proizvod['naziv'] }}" readonly>
+        </div>
+        <div>
+            <label>Opis:</label>
+            <textarea name="opis" id="" cols="30" rows="10" readonly>{{jedan_proizvod['opis']  }}</textarea>
+        </div>
+        <div>
+            <label>Cena:</label>
+            <input type="number" name="cena" step="any" readonly value="{{ jedan_proizvod['cena'] }}" >
+        </div>
+        <div>
+            <label>Dostupno:</label>
+            <input type="number" min="0" max="1" readonly name="dostupno" value="{{jedan_proizvod['dostupno'] }}">
+        </div>
+</div>
+{% endblock  %}

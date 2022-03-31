@@ -1,0 +1,37 @@
+{% extends 'template.html' %}
+{% block title %}Prikaz Kupovine{% endblock %}
+{% block head %}
+ {{ super() }}
+ <link rel="stylesheet" href="{{ url_for('static',filename='prikaz.css') }}">
+ {% endblock %}
+
+{% block body %}
+<div id="container">
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Kupac ID</th>
+            <th>Proizvod ID</th>
+            <th>Kolicina</th>
+            <th>Cena</th>
+            <th>Datum Kupovine</th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+        {% for kupovina in kupovine %}
+            <tr>
+                <td>{{ kupovina['id'] }}</td>
+                <td>{{ kupovina['kupac_id'] }}</td>
+                <td>{{ kupovina['proizvod_id'] }}</td>
+                <td>{{ kupovina['kolicina'] }}</td>
+                <td>{{ kupovina['cena'] }}</td>
+                <td>{{ kupovina['datumKupovine'] }}</td>
+                <td><a href="{{ url_for('detalji_kupovine',id=kupovina['id']) }}">Detalji</a></td>
+                <td><a href="{{ url_for('izmeni_kupovinu',id=kupovina['id']) }}">Izmeni</a></td>
+                <td><a href="{{ url_for('obrisi_kupovinu',id=kupovina['id']) }}">Obrisi</a></td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock  %}
