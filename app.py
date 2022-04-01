@@ -1,3 +1,4 @@
+from math import fabs
 from flask import Flask,url_for,redirect,render_template,request
 from flaskext.mysql import MySQL
 import pymysql
@@ -6,8 +7,8 @@ app = Flask(__name__)
 
 app.config["MYSQL_DATABASE_HOST"] = "localhost"
 app.config["MYSQL_DATABASE_PORT"] = 3306
-app.config["MYSQL_DATABASE_USER"] = "" 
-app.config["MYSQL_DATABASE_PASSWORD"] = "" 
+app.config["MYSQL_DATABASE_USER"] = "root" 
+app.config["MYSQL_DATABASE_PASSWORD"] = "Najbolji3" 
 app.config["MYSQL_DATABASE_DB"] = "prodavnica"
 
 mysql = MySQL(app,cursorclass=pymysql.cursors.DictCursor)
@@ -224,25 +225,38 @@ def obrisi_kupovinu(id):
 @app.route("/pretraga/proizvoda",methods=["GET","POST"])
 def pretraga_proizvoda():
     proizvod = ""
+    # query_string = "SELECT * FROM proizvod WHERE id=%(id)s AND naziv=%(naziv)s AND opis=%(opis)s AND dostupno=%(dostupno)s AND cena BETWEEN %(cena_manja)s and %(cena_veca)s;"
+    query_string = "SELECT * FROM proizvod"
     if request.method == "POST":
         pretraga = dict(request.form)
         db = mysql.get_db()
         cursor = db.cursor()
-        if pretraga['id'] != '':
-            cursor.execute("SELECT * FROM proizvod WHERE id = %s;",(pretraga['id']))
-            proizvod = cursor.fetchall()
-        elif pretraga['naziv'] != '':
-            cursor.execute("SELECT * FROM proizvod WHERE naziv = %s;",(pretraga['naziv']))
-            proizvod = cursor.fetchall()
-        elif pretraga['opis'] != '':
-            cursor.execute("SELECT * FROM proizvod WHERE opis = %s;",(pretraga['opis']))
-            proizvod = cursor.fetchall()
-        elif pretraga['cena_veca'] != '' and pretraga['cena_manja'] != '':
-            cursor.execute("SELECT * FROM proizvod WHERE cena BETWEEN %s AND %s;",(pretraga['cena_manja'],pretraga['cena_veca']))
-            proizvod = cursor.fetchall()
-        elif pretraga['dostupno'] != '':
-            cursor.execute("SELECT * FROM proizvod WHERE dostupno = %s;",(pretraga['dostupno']))
-            proizvod = cursor.fetchall()
+        print(pretraga)
+
+        count = 0
+        for keys,values in pretraga.items():
+            if values != '':
+                if count == 0:
+                    if keys == "cena_manja":
+                        query_string += f" WHERE cena >= %({keys})s "
+                    elif keys == "cena_veca":
+                        query_string += f" WHERE cena <= %({keys})s "
+                    else:
+                        query_string += f" WHERE {keys} = %({keys})s "
+                    
+                else:
+                    if keys == "cena_veca":
+                        query_string += f"AND cena <= %({keys})s "
+                    elif keys == "cena_manja":
+                        query_string += f"AND cena >= %({keys})s "
+                    else:
+                        query_string += f"AND {keys} = %({keys})s "
+                count+=1
+
+        print(query_string)
+
+        cursor.execute(query_string,pretraga)
+        proizvod = cursor.fetchall()
 
     return render_template("pretraga_proizvoda.html",proizvod=proizvod)
 
